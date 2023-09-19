@@ -113,7 +113,26 @@ Node::Node() {
 // returned index -- so printing "63121", 
 // where the last "1" is index of 2 in the list. 
 // 
-int BSearch( /*input arguments*/ ) {
+int BSearch(int arr[], int key, int left, int right) {
+
+	//calculate mid
+	int mid = (left + right) / 2;
+
+	//get value at mid
+	int val = arr[mid];
+
+	//print value at mid
+	cout << val;
+
+	//BASE CASE: return mid if val matches key
+	if(key == val) return mid;
+
+	//RECURSIVE CASE: key is in lower half of array
+	else if(key < val) return BSearch(arr, key, left, mid - 1);
+
+	//RECURSIVE CASE: key is in upper half of array
+	else return BSearch(arr, key, mid + 1, right);
+
 }
 
 //
