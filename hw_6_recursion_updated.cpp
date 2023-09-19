@@ -33,7 +33,7 @@
 // of elements in the list, always pick the mid-1 
 // element for comparison (with the search key). 
 // 
-// Note that there are three tasks in this template.
+// Note that there are five tasks in this template.
 // 
 
 
@@ -64,7 +64,6 @@ Node* Node::Get_Pnext() {
 }
 Node::Node() {
 	SID = -1;
-	GPA = -1;
 	p_next = NULL;
 }
 
@@ -144,9 +143,9 @@ int main()
 	// holds the list for merge sort. 
 	Node* L2 = NULL;
 
-	int mode, temp; 
+	int mode, temp, key; 
 
-	cin >> mode;
+	cin >> mode >> key;
 
 	// The first loop takes input for binary 
 	// search. For simplicity, we assume there 
@@ -186,11 +185,20 @@ int main()
 	// 
 	// Mode 0: test BSearch()
 	if (mode == 0) {
-		cout << BSearch(L1);
+		
+		// Task 4: apply binary search. 
+		// One input should be "L1" (search list)
+		// Another input should be "key" (search key)
+		// Complete the input based on your design.
+		cout << BSearch(______);
 	}
 	// Mode 1: test MSort()
 	else if (mode == 1) {
-		L2 = MSort(L2);
+		
+		// Task 5: apply merge sort. 
+		// One input should be "L2" (input list)
+		// Complete the input based on your design.		
+		L2 = MSort(______);
 		Node* temp = L2;
 		while (temp != NULL) {
 			cout << *temp->Get_SID();
