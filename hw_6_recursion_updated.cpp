@@ -148,7 +148,17 @@ int BSearch(int arr[], int key, int left, int right) {
 // Input: you can design the input arguments 
 // in any way you like. 
 // 
-Node* MSort(/*input arguments*/) {
+Node* MSort(Node* head) {
+	//BASE CASE: head is null or head->next is null
+	if(head == NULL || head->Get_Pnext() == NULL) return head;
+
+	//RECURSIVE CASE: halv list into two sublists
+
+	//call MSort(leftSubList)
+
+	//call Msort(rightSublist)
+
+	//merge the two sublists
 }
 
 
