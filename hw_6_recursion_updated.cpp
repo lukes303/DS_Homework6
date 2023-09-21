@@ -150,26 +150,32 @@ int BSearch(int arr[], int key, int left, int right) {
 // 
 Node* MSort(Node* head) {
 	//BASE CASE: head is null or head->next is null
-	if(head == NULL || head->Get_Pnext() == NULL) return head;
+	if(head == NULL && head->Get_Pnext() == NULL) return head;
 
 	//RECURSIVE CASE: halve list into two sublists
 	Node* fast = head;
 	Node* slow = head;
-	Node* mid;
+	Node* temp;
 
-	while(fast != NULL || fast->Get_Pnext() != NULL){
-		fast = fast->Get_Pnext()->Get_Pnext();
-		slow = slow->Get_Pnext();
+	// 2 pointer appraoach / turtle-hare Algorithm
+	while(fast != NULL && fast->Get_Pnext() != NULL){
+		temp = slow;
+		fast = fast->Get_Pnext()->Get_Pnext(); //fast increment by 2
+		slow = slow->Get_Pnext(); //slow increment by 1
 	}
+	//Temp is now the LAST node of the left half
+	//Slow is now the FIRST node of the right half
 
-	mid = slow;
+	temp->Set_Pnext(NULL); //Break list in half
 
-
-	//call MSort(leftSubList)
-
-	//call Msort(rightSublist)
+	//call MSort for left
+	Node* left = MSort(head);
+	
+	//call Msort for right
+	Node* right = MSort(slow);
 
 	//merge the two sublists
+	return NULL;
 }
 
 
