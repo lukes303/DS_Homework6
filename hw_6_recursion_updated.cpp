@@ -49,7 +49,7 @@ public:
 private:
 	int SID;
 	Node* p_next;
-}
+};
 void Node::Set_SID(int x) {
 	SID = x;
 }
@@ -152,7 +152,18 @@ Node* MSort(Node* head) {
 	//BASE CASE: head is null or head->next is null
 	if(head == NULL || head->Get_Pnext() == NULL) return head;
 
-	//RECURSIVE CASE: halv list into two sublists
+	//RECURSIVE CASE: halve list into two sublists
+	Node* fast = head;
+	Node* slow = head;
+	Node* mid;
+
+	while(fast != NULL || fast->Get_Pnext() != NULL){
+		fast = fast->Get_Pnext()->Get_Pnext();
+		slow = slow->Get_Pnext();
+	}
+
+	mid = slow;
+
 
 	//call MSort(leftSubList)
 
