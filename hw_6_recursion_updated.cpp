@@ -175,7 +175,50 @@ Node* MSort(Node* head) {
 	Node* right = MSort(slow);
 
 	//merge the two sublists
-	return NULL;
+	Node* curr;
+	Node* newHead;
+
+	if(left != NULL && right != NULL){
+		
+		if(left->Get_SID() <= right->Get_SID()){
+			curr = left;
+			left = left->Get_Pnext();
+		} 
+		else{
+			curr = right;
+			right = right->Get_Pnext();
+		}
+		newHead = curr;
+	}
+	
+	while(left != NULL || right != NULL){
+		if(left->Get_SID() <= right->Get_SID()){
+			curr->Set_Pnext(left);
+			left = left->Get_Pnext();
+		} 
+		else{
+			curr->Set_Pnext(right);
+			right = right->Get_Pnext();
+		}
+
+		curr = curr->Get_Pnext();
+	}
+
+	while(left != NULL){
+		curr->Set_Pnext(left);
+		left = left->Get_Pnext();
+		curr = curr->Get_Pnext();
+	}
+
+	while(right != NULL){
+		curr->Set_Pnext(right);
+		right = right->Get_Pnext();
+		curr = curr->Get_Pnext();
+	}
+
+	curr->Set_Pnext(NULL);
+
+	return newHead;
 }
 
 
