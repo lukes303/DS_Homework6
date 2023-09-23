@@ -46,6 +46,7 @@ public:
 	int Get_SID();
 	void Set_Pnext(Node *p);
 	Node * Get_Pnext();
+	Node();
 private:
 	int SID;
 	Node* p_next;
@@ -166,7 +167,7 @@ Node* MSort(Node* head) {
 	//Temp is now the LAST node of the left half
 	//Slow is now the FIRST node of the right half
 
-	temp->Set_Pnext(NULL); //Break list in half
+	temp->Set_Pnext(nullptr); //Break list in half
 
 	//call MSort for left
 	Node* left = MSort(head);
@@ -262,10 +263,23 @@ int main()
 	// You can also declare extra pointers 
 	// or nodes as necessary.
 	while (cin >> temp) {
+		
+		//Dynamically allocate new node
+		Node* newNode = new Node();
+		Node* prev;
 
+		//Set id
+		newNode->Set_SID(temp);
 
+		//Set L2's head if this is the first input
+		if(L2 == NULL) L2 = newNode;
 
-	
+		//Link previous node to current one if there is one
+		else prev->Set_Pnext(newNode);
+
+		//Update previous
+		prev = newNode;
+
 	}
 
 	// -----------------------------------
@@ -279,7 +293,7 @@ int main()
 		// One input should be "L1" (search list)
 		// Another input should be "key" (search key)
 		// Complete the input based on your design.
-		cout << BSearch(______);
+		cout << BSearch(L1, key, 0, 10);
 	}
 	// Mode 1: test MSort()
 	else if (mode == 1) {
@@ -287,10 +301,10 @@ int main()
 		// Task 5: apply merge sort. 
 		// One input should be "L2" (input list)
 		// Complete the input based on your design.		
-		L2 = MSort(______);
+		L2 = MSort(L2);
 		Node* temp = L2;
 		while (temp != NULL) {
-			cout << *temp->Get_SID();
+			cout << temp->Get_SID();
 			temp = temp->Get_Pnext();
 		}
 	}
