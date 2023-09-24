@@ -148,26 +148,64 @@ int BSearch(int arr[], int key, int left, int right) {
 // 
 // Input: you can design the input arguments 
 // in any way you like. 
-// 
+//
+
+//Merge list function
+Node* mergeList(Node* left, Node* right) {
+	//dummyNode holds default constructor values. Serves as basis for merged list. dummyNode->Get_Pnext() is our new head of merged list
+	Node* dummyNode = new Node();
+	Node *curr = dummyNode;
+
+	//While left and right are not NULL
+	while(left != NULL && right != NULL){
+		//If the current sid at left is lower or equal to then current value in right, add current left value to new linked list
+		if(left->Get_SID() <= right->Get_SID()){
+			curr->Set_Pnext(left);
+			left = left->Get_Pnext();
+		}
+		//If current right sid is lower, add current right value to the new linked list
+		else{
+			curr->Set_Pnext(right);
+			right = right->Get_Pnext();
+		}
+
+		//Update current
+		curr = curr->Get_Pnext();
+	}
+
+	//For any remaining nodes in left or right
+	if(left != NULL){
+		curr->Set_Pnext(left);
+		left = left->Get_Pnext();
+	}
+
+	if(right != NULL){
+		curr->Set_Pnext(right);
+		right = right->Get_Pnext();
+	}
+
+	//dummyNode->GetPnext, is the new head of our merged list
+	return dummyNode->Get_Pnext();
+}
+
 Node* MSort(Node* head) {
 	//BASE CASE: head is null or head->next is null
-	if(head == NULL && head->Get_Pnext() == NULL) return head;
+	if(head == NULL || head->Get_Pnext() == NULL) return head;
 
 	//RECURSIVE CASE: halve list into two sublists
 	Node* fast = head;
 	Node* slow = head;
-	Node* temp;
+	Node* temp = NULL;
 
 	// 2 pointer appraoach / turtle-hare Algorithm
 	while(fast != NULL && fast->Get_Pnext() != NULL){
 		temp = slow;
-		fast = fast->Get_Pnext()->Get_Pnext(); //fast increment by 2
 		slow = slow->Get_Pnext(); //slow increment by 1
+		fast = fast->Get_Pnext()->Get_Pnext(); //fast increment by 2
 	}
 	//Temp is now the LAST node of the left half
 	//Slow is now the FIRST node of the right half
-
-	temp->Set_Pnext(nullptr); //Break list in half
+	temp->Set_Pnext(NULL); //Break list in half
 
 	//call MSort for left
 	Node* left = MSort(head);
@@ -175,51 +213,8 @@ Node* MSort(Node* head) {
 	//call Msort for right
 	Node* right = MSort(slow);
 
-	//merge the two sublists
-	Node* curr;
-	Node* newHead;
-
-	if(left != NULL && right != NULL){
-		
-		if(left->Get_SID() <= right->Get_SID()){
-			curr = left;
-			left = left->Get_Pnext();
-		} 
-		else{
-			curr = right;
-			right = right->Get_Pnext();
-		}
-		newHead = curr;
-	}
-	
-	while(left != NULL || right != NULL){
-		if(left->Get_SID() <= right->Get_SID()){
-			curr->Set_Pnext(left);
-			left = left->Get_Pnext();
-		} 
-		else{
-			curr->Set_Pnext(right);
-			right = right->Get_Pnext();
-		}
-
-		curr = curr->Get_Pnext();
-	}
-
-	while(left != NULL){
-		curr->Set_Pnext(left);
-		left = left->Get_Pnext();
-		curr = curr->Get_Pnext();
-	}
-
-	while(right != NULL){
-		curr->Set_Pnext(right);
-		right = right->Get_Pnext();
-		curr = curr->Get_Pnext();
-	}
-
-	curr->Set_Pnext(NULL);
-
-	return newHead;
+	//Merge two sublists and return
+	return mergeList(left, right);
 }
 
 
@@ -262,23 +257,24 @@ int main()
 	// to store head of the constructed list. 
 	// You can also declare extra pointers 
 	// or nodes as necessary.
+	Node* curr;
+	Node* prev;
 	while (cin >> temp) {
 		
 		//Dynamically allocate new node
-		Node* newNode = new Node();
-		Node* prev;
+		curr = new Node();
 
 		//Set id
-		newNode->Set_SID(temp);
+		curr->Set_SID(temp);
 
 		//Set L2's head if this is the first input
-		if(L2 == NULL) L2 = newNode;
+		if(L2 == NULL) L2 = curr;
 
 		//Link previous node to current one if there is one
-		else prev->Set_Pnext(newNode);
+		else prev->Set_Pnext(curr);
 
 		//Update previous
-		prev = newNode;
+		prev = curr;
 
 	}
 
