@@ -116,6 +116,11 @@ Node::Node() {
 // 
 int BSearch(int arr[], int key, int left, int right) {
 
+	// Base case: target not found
+    if (left > right) {
+        return -1;
+    }
+
 	//calculate mid
 	int mid = (left + right) / 2;
 
